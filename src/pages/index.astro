@@ -7,6 +7,9 @@ import profilePhoto from '../../my-pic-for-display.jpg';
 const snapshots = (await getCollection('snapshots')).sort(
 	(a, b) => b.data.order - a.data.order
 );
+const experience = (await getCollection('experience')).sort(
+	(a, b) => b.data.order - a.data.order
+);
 ---
 
 <Layout>
@@ -70,6 +73,25 @@ const snapshots = (await getCollection('snapshots')).sort(
 				</li>
 			))}
 		</ul>
+	</section>
+
+	<section id="experience" class="mx-auto max-w-5xl px-6 py-16">
+		<h2 class="font-heading text-2xl font-bold text-ink">Experience</h2>
+		<ol class="relative mt-8 ml-3 border-l-2 border-border">
+			{experience.map((role) => (
+				<li class="relative pb-10 pl-8 last:pb-0">
+					<span class="absolute -left-[9px] top-1 h-4 w-4 rounded-full border-2 border-bg bg-primary"></span>
+					<div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+						<h3 class="font-heading text-base font-bold text-ink">{role.data.title}</h3>
+						<span class="text-xs font-semibold uppercase tracking-wide text-ink-muted">
+							{role.data.startDate} &ndash; {role.data.endDate}
+						</span>
+					</div>
+					<p class="text-sm font-semibold text-primary">{role.data.company}</p>
+					<p class="mt-1 text-sm text-ink-muted">{role.data.summary}</p>
+				</li>
+			))}
+		</ol>
 	</section>
 
 	<section id="snapshots" class="mx-auto max-w-5xl px-6 py-16">
