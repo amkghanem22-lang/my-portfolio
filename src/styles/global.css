@@ -44,6 +44,20 @@
 	--font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
 }
 
+@media (prefers-color-scheme: dark) {
+	:root {
+		--color-primary: #55c4a4;
+		--color-primary-ink: #0b1512;
+		--color-accent: #ec6d8a;
+		--color-accent-ink: #2b0810;
+		--color-bg: #12201b;
+		--color-surface: #17271f;
+		--color-border: #34473c;
+		--color-ink: #eef4f1;
+		--color-ink-muted: #a3b3ac;
+	}
+}
+
 html {
 	scroll-behavior: smooth;
 }

@@ -6,18 +6,27 @@ import profilePhoto from '../../my-pic-for-display.jpg';
 import qardyImage from '../../qardy-products/1-qardy-revamped-website.png';
 import diagnostixImage from '../../3d-diagnostix-products/Connect 1.png';
 import eradaImage from '../../erada-finance-products/xfin-mvp/2-xfin-mvp-create-company-lead.png';
+import qardyLogo from '../../qardy-products/qardy-logo.png';
+import diagnostixLogo from '../../3d-diagnostix-products/3D-Diagnostix-logo.png';
+import eradaLogo from '../../erada-finance-products/erada-logo.png';
 
 const snapshots = (await getCollection('snapshots')).sort(
 	(a, b) => b.data.order - a.data.order
 );
 const experience = (await getCollection('experience')).sort(
-	(a, b) => b.data.order - a.data.order
+	(a, b) => a.data.order - b.data.order
 );
 
 const snapshotImages: Record<string, ImageMetadata> = {
 	Qardy: qardyImage,
 	'3D|Diagnostix': diagnostixImage,
 	'Erada Finance': eradaImage,
+};
+
+const companyLogos: Record<string, ImageMetadata> = {
+	Qardy: qardyLogo,
+	'3D|Diagnostix': diagnostixLogo,
+	'Erada Finance': eradaLogo,
 };
 ---
 
@@ -80,7 +89,15 @@ const snapshotImages: Record<string, ImageMetadata> = {
 							{role.data.startDate} &ndash; {role.data.endDate}
 						</span>
 					</div>
-					<p class="text-sm font-semibold text-primary">{role.data.company}</p>
+					<div class="mt-1 flex items-center gap-2">
+						<Image
+							src={companyLogos[role.data.company]}
+							alt={`${role.data.company} logo`}
+							width={160}
+							class="h-5 w-auto rounded bg-white p-0.5 ring-1 ring-border"
+						/>
+						<p class="text-sm font-semibold text-primary">{role.data.company}</p>
+					</div>
 					<p class="mt-1 text-sm text-ink-muted">{role.data.summary}</p>
 				</li>
 			))}
