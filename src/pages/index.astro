@@ -1,7 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
 import profilePhoto from '../../my-pic-for-display.jpg';
+
+const snapshots = (await getCollection('snapshots')).sort(
+	(a, b) => b.data.order - a.data.order
+);
 ---
 
 <Layout>
@@ -65,5 +70,30 @@ import profilePhoto from '../../my-pic-for-display.jpg';
 				</li>
 			))}
 		</ul>
+	</section>
+
+	<section id="snapshots" class="mx-auto max-w-5xl px-6 py-16">
+		<h2 class="font-heading text-2xl font-bold text-ink">Snapshots</h2>
+		<div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+			{snapshots.map((snapshot) => (
+				<article class="flex flex-col gap-4 rounded-xl border border-border bg-surface p-6 shadow-sm">
+					<div>
+						<h3 class="font-heading text-lg font-bold text-ink">{snapshot.data.company}</h3>
+						<span class="mt-1 inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+							{snapshot.data.role}
+						</span>
+					</div>
+					<p class="text-sm leading-relaxed text-ink-muted">{snapshot.data.summary}</p>
+					<div class="mt-auto grid grid-cols-3 gap-2 border-t border-border pt-4">
+						{snapshot.data.metrics.slice(0, 3).map((metric) => (
+							<div class="text-center">
+								<div class="font-heading text-base font-bold text-primary">{metric.value}</div>
+								<div class="text-[11px] uppercase tracking-wide text-ink-muted">{metric.label}</div>
+							</div>
+						))}
+					</div>
+				</article>
+			))}
+		</div>
 	</section>
 </Layout>
