@@ -3,6 +3,9 @@ import Layout from '../layouts/Layout.astro';
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import profilePhoto from '../../my-pic-for-display.jpg';
+import qardyImage from '../../qardy-products/1-qardy-revamped-website.png';
+import diagnostixImage from '../../3d-diagnostix-products/Connect 1.png';
+import eradaImage from '../../erada-finance-products/xfin-mvp/2-xfin-mvp-create-company-lead.png';
 
 const snapshots = (await getCollection('snapshots')).sort(
 	(a, b) => b.data.order - a.data.order
@@ -10,6 +13,12 @@ const snapshots = (await getCollection('snapshots')).sort(
 const experience = (await getCollection('experience')).sort(
 	(a, b) => b.data.order - a.data.order
 );
+
+const snapshotImages: Record<string, ImageMetadata> = {
+	Qardy: qardyImage,
+	'3D|Diagnostix': diagnostixImage,
+	'Erada Finance': eradaImage,
+};
 ---
 
 <Layout>
@@ -29,14 +38,15 @@ const experience = (await getCollection('experience')).sort(
 					</h1>
 					<p class="mt-2 text-lg font-semibold text-primary">Product Manager</p>
 					<span class="mt-2 inline-block rounded-full border border-border bg-surface px-3 py-1 text-xs font-semibold uppercase tracking-wide text-ink-muted">
-						FinTech &amp; Financial Services
+						FinTech &amp; HealthTech
 					</span>
 				</div>
 				<p class="max-w-xl text-base leading-relaxed text-ink-muted">
-					I'm a senior product owner in FinTech, turning ambiguous financial problems into
-					shipped digital products &mdash; from PRDs and user research through UAT and measurable
-					outcomes. I partner closely with engineering and design to make complex financial
-					workflows simple.
+					Growth-oriented Product Manager with 4+ years of progressive experience in product
+					management and a strong track record of launching new product lines across FinTech
+					&amp; HealthTech industries, adept at spearheading development strategies and
+					maximizing value through user-centric techniques and innovative solutions with proven
+					insights.
 				</p>
 				<div class="flex flex-wrap items-center justify-center gap-3 md:justify-start">
 					<a
@@ -98,21 +108,30 @@ const experience = (await getCollection('experience')).sort(
 		<h2 class="font-heading text-2xl font-bold text-ink">Snapshots</h2>
 		<div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
 			{snapshots.map((snapshot) => (
-				<article class="flex flex-col gap-4 rounded-xl border border-border bg-surface p-6 shadow-sm">
-					<div>
-						<h3 class="font-heading text-lg font-bold text-ink">{snapshot.data.company}</h3>
-						<span class="mt-1 inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-							{snapshot.data.role}
-						</span>
-					</div>
-					<p class="text-sm leading-relaxed text-ink-muted">{snapshot.data.summary}</p>
-					<div class="mt-auto grid grid-cols-3 gap-2 border-t border-border pt-4">
-						{snapshot.data.metrics.slice(0, 3).map((metric) => (
-							<div class="text-center">
-								<div class="font-heading text-base font-bold text-primary">{metric.value}</div>
-								<div class="text-[11px] uppercase tracking-wide text-ink-muted">{metric.label}</div>
-							</div>
-						))}
+				<article class="flex flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-sm">
+					<Image
+						src={snapshotImages[snapshot.data.company]}
+						alt={`${snapshot.data.company} product screenshot`}
+						width={640}
+						height={400}
+						class="h-40 w-full border-b border-border object-cover object-top"
+					/>
+					<div class="flex flex-1 flex-col gap-4 p-6">
+						<div>
+							<h3 class="font-heading text-lg font-bold text-ink">{snapshot.data.company}</h3>
+							<span class="mt-1 inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+								{snapshot.data.role}
+							</span>
+						</div>
+						<p class="text-sm leading-relaxed text-ink-muted">{snapshot.data.summary}</p>
+						<div class="mt-auto grid grid-cols-3 gap-2 border-t border-border pt-4">
+							{snapshot.data.metrics.slice(0, 3).map((metric) => (
+								<div class="text-center">
+									<div class="font-heading text-base font-bold text-primary">{metric.value}</div>
+									<div class="text-[11px] uppercase tracking-wide text-ink-muted">{metric.label}</div>
+								</div>
+							))}
+						</div>
 					</div>
 				</article>
 			))}
