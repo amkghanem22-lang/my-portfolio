@@ -9,6 +9,7 @@ const experience = defineCollection({
 		startDate: z.string(),
 		endDate: z.string(),
 		summary: z.string(),
+		highlights: z.array(z.string()),
 		order: z.number(),
 	}),
 });
