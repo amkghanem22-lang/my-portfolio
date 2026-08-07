@@ -5,7 +5,14 @@ interface Props {
 	title?: string;
 }
 
-const { title = 'Astro' } = Astro.props;
+const { title = 'Abdelrahman Ghanem — Product Manager' } = Astro.props;
+
+const navLinks = [
+	{ label: 'About', href: '#about' },
+	{ label: 'Experience', href: '#experience' },
+	{ label: 'Snapshots', href: '#snapshots' },
+	{ label: 'Contact', href: '#contact' },
+];
 ---
 
 <html lang="en">
@@ -17,7 +24,48 @@ const { title = 'Astro' } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body>
+	<body class="font-body">
+		<header
+			data-site-header
+			class="sticky top-0 z-50 border-b border-border/0 bg-bg/90 backdrop-blur transition-shadow duration-200"
+		>
+			<nav class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+				<a href="#" class="font-heading text-lg font-bold text-primary">
+					Abdelrahman Ghanem
+				</a>
+				<ul class="flex items-center gap-6 text-sm font-semibold text-ink-muted">
+					{navLinks.map((link) => (
+						<li>
+							<a href={link.href} class="transition-colors hover:text-primary">
+								{link.label}
+							</a>
+						</li>
+					))}
+				</ul>
+			</nav>
+		</header>
+
 		<slot />
+
+		<footer class="border-t border-border">
+			<div class="mx-auto max-w-5xl px-6 py-8 text-sm text-ink-muted">
+				&copy; {new Date().getFullYear()} Abdelrahman Ghanem
+			</div>
+		</footer>
+
+		<script>
+			const header = document.querySelector('[data-site-header]');
+			const onScroll = () => {
+				if (window.scrollY > 8) {
+					header?.classList.add('shadow-md', 'border-border');
+					header?.classList.remove('border-border/0');
+				} else {
+					header?.classList.remove('shadow-md', 'border-border');
+					header?.classList.add('border-border/0');
+				}
+			};
+			onScroll();
+			window.addEventListener('scroll', onScroll, { passive: true });
+		</script>
 	</body>
 </html>

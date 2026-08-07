@@ -1,7 +1,52 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import profilePhoto from '../../my-pic-for-display.jpg';
 ---
 
 <Layout>
-	<h1 class="text-3xl font-bold underline text-blue-600">Astro + Tailwind is working</h1>
+	<section id="hero" class="mx-auto max-w-5xl px-6 py-20 md:py-28">
+		<div class="flex flex-col items-center gap-10 text-center md:flex-row md:items-center md:gap-14 md:text-left">
+			<Image
+				src={profilePhoto}
+				alt="Portrait of Abdelrahman Ghanem"
+				width={480}
+				height={480}
+				class="h-40 w-40 shrink-0 rounded-full object-cover shadow-lg ring-4 ring-primary/15 md:h-56 md:w-56"
+			/>
+			<div class="flex flex-col items-center gap-4 md:items-start">
+				<div>
+					<h1 class="font-heading text-4xl font-bold text-ink sm:text-5xl">
+						Abdelrahman Ghanem
+					</h1>
+					<p class="mt-2 text-lg font-semibold text-primary">Product Manager</p>
+					<span class="mt-2 inline-block rounded-full border border-border bg-surface px-3 py-1 text-xs font-semibold uppercase tracking-wide text-ink-muted">
+						FinTech &amp; Financial Services
+					</span>
+				</div>
+				<p class="max-w-xl text-base leading-relaxed text-ink-muted">
+					I'm a senior product owner in FinTech, turning ambiguous financial problems into
+					shipped digital products &mdash; from PRDs and user research through UAT and measurable
+					outcomes. I partner closely with engineering and design to make complex financial
+					workflows simple.
+				</p>
+				<div class="flex flex-wrap items-center justify-center gap-3 md:justify-start">
+					<a
+						href="#snapshots"
+						class="rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-ink transition hover:opacity-90"
+					>
+						View my work
+					</a>
+					<a
+						href="#"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="rounded-lg border border-border px-5 py-2.5 text-sm font-semibold text-ink transition hover:bg-surface"
+					>
+						LinkedIn
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
 </Layout>
